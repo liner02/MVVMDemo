@@ -40,9 +40,9 @@ class SplashActivity : AppActivity<SplashViewModel, ActSplashBinding>() {
     @AfterViews
     fun afterViews() {
         Log.i(TAG,"afterViews")
-        Handler().postDelayed({
-            viewModel.label.set("AfterViews")
-        },2000)
+//        Handler().postDelayed({
+//            viewModel.label.set("AfterViews")
+//        },2000)
     }
 
     @BeforeViews
