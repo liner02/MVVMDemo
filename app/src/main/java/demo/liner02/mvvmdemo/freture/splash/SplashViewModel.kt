@@ -6,7 +6,9 @@ import android.graphics.Color
 import android.util.Log
 import com.timper.lonelysword.ActivityScope
 import com.timper.lonelysword.base.AppViewModel
-import demo.liner02.mvvmdemo.data.GetWXActicleUseCase
+import demo.liner02.mvvmdemo.data.GetHomeUseCase
+import demo.liner02.mvvmdemo.data.bean.Article
+import demo.liner02.mvvmdemo.data.bean.Home
 import demo.liner02.mvvmdemo.data.bean.WXArticle
 import io.reactivex.FlowableSubscriber
 import org.reactivestreams.Subscription
@@ -19,11 +21,10 @@ import javax.inject.Inject
  * Description:
  * FIXME
  */
-class SplashViewModel @Inject constructor(var useCase: GetWXActicleUseCase) : AppViewModel() {
+class SplashViewModel @Inject constructor(var useCase: GetHomeUseCase) : AppViewModel() {
 
     var label = ObservableField<String>("")
     var bgColor = ObservableInt(Color.parseColor("#ffffff"))
-
     val TAG = "SplashViewModel"
 
     init {
@@ -44,7 +45,7 @@ class SplashViewModel @Inject constructor(var useCase: GetWXActicleUseCase) : Ap
         super.afterViews()
         Log.i(TAG, "afterViews")
         useCase.execute(null)
-            .subscribe(object : FlowableSubscriber<List<WXArticle>>{
+            .subscribe(object : FlowableSubscriber<Home>{
             override fun onComplete() {
                 Log.e(TAG,"onComplete")
             }
@@ -58,16 +59,15 @@ class SplashViewModel @Inject constructor(var useCase: GetWXActicleUseCase) : Ap
                 Log.e(TAG,"onError $t")
             }
 
-            override fun onNext(t: List<WXArticle>?) {
+            override fun onNext(t: Home?) {
                 Log.e(TAG,"onNext")
                 t?.run {
-                    if (t.isNotEmpty()){
+                    if (t.datas.isNotEmpty()){
                         Log.e(TAG,"onNext isNotEmpty")
-                        label.set(t[0].name)
+                        label.set(t.datas[0].author)
                     }
                 }
             }
-
         })
     }
 }

@@ -1,6 +1,8 @@
 package demo.liner02.mvvmdemo.data
 
 import com.timper.lonelysword.annotations.apt.UseCase
+import demo.liner02.mvvmdemo.data.bean.Article
+import demo.liner02.mvvmdemo.data.bean.Home
 import demo.liner02.mvvmdemo.data.bean.WXArticle
 import io.reactivex.Flowable
 
@@ -14,4 +16,7 @@ interface WanAndroidRepository {
 
     @UseCase
     fun getWXActicle(): Flowable<List<WXArticle>>
+
+    @UseCase
+    fun getHome(): Flowable<Home>
 }
